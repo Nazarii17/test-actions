@@ -1,0 +1,15 @@
+name: React CI Trigger
+
+on:
+  push:
+    paths:
+      - 'second-action-react/**'
+jobs:
+  run-service-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code
+        uses: actions/checkout@v4
+
+      - name: Run React CI Logic
+        uses: ./second-action-react/.github/workflows
