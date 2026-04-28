@@ -1,0 +1,20 @@
+name: 'React Deployment'
+description: 'A dummy composite action for deploying the React application'
+
+inputs:
+  working-directory:
+    description: 'The directory where the React project is located'
+    required: false
+    default: './second-action-react'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Dummy deploy step
+      run: |
+        echo "Starting dummy deployment"
+        echo "Project directory: ${{ inputs.working-directory }}"
+        echo "Building assets..."
+        echo "Uploading files..."
+        echo "Deployment complete"
+      shell: bash
