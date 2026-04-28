@@ -4,12 +4,29 @@ on:
   push:
     paths:
       - 'second-action-react/**'
+  workflow_dispatch:
+
 jobs:
-  run-service-ci:
+  test-project:
     runs-on: ubuntu-latest
     steps:
       - name: Download code
         uses: actions/checkout@v4
 
-      - name: Run React CI Logic
-        uses: ./second-action-react/.github/workflows/action.yml
+      - name: Run React tests
+        uses: ./second-action-react/.github/workflows/test-project.yml
+        with:
+          node-version: '24'
+          working-directory: './second-action-react'
+
+  deploy-project:
+    needs: test-project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code
+        uses: actions/checkout@v4
+
+      - name: Run dummy deploy
+        uses: ./second-action-react/.github/workflows/deploy.yml
+        with:
+          working-directory: './second-action-react'
