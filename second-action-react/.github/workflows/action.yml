@@ -1,6 +1,6 @@
 name: 'React CI Pipeline'
 description: 'A professional composite action for automated testing of React applications'
-author: 'Your Name or Organization'
+author: 'Nazarii Tkachuk'
 
 inputs:
   node-version:
