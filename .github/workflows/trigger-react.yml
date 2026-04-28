@@ -5,7 +5,7 @@ on:
     paths:
       - 'second-action-react/**'
 jobs:
-  bla:
+  run-service-ci:
     runs-on: ubuntu-latest
     steps:
       - name: Download code
