@@ -1,5 +1,7 @@
-name: Events Demo
-on: ...
+name: 'React CI Pipeline'
+description: 'A professional composite action for automated lint of React applications'
+author: 'Nazarii Tkachuk'
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
