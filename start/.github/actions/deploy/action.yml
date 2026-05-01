@@ -1,0 +1,25 @@
+name: 'React Deployment'
+description: 'A dummy composite action for deploying the React application'
+author: 'Nazarii Tkachuk'
+
+inputs:
+  working-directory:
+    description: 'The directory where the React project is located'
+    required: false
+    default: './second-action-react'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 📦 Install dependencies
+      run: npm ci
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+    - name: Build project
+      run: npm run build
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+    - name: Deploy project
+      run: echo "Deploying..."
+      shell: bash
+

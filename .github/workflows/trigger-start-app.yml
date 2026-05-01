@@ -28,3 +28,14 @@ jobs:
         with:
           node-version: '24'
           working-directory: './start'
+  deploy-project:
+    needs: test-project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code
+        uses: actions/checkout@v4
+
+      - name: Run dummy deploy
+        uses: ./start/.github/actions/deploy
+        with:
+          working-directory: './start'
