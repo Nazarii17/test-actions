@@ -3,7 +3,7 @@ name: React CI Trigger
 on:
   push:
     paths:
-      - 'second-action-react/**'
+      - 'react-app-1/**'
   workflow_dispatch:
 
 jobs:
@@ -14,10 +14,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run React tests
-        uses: ./second-action-react/.github/actions/test-project
+        uses: ./react-app-1/.github/actions/test-project
         with:
           node-version: '24'
-          working-directory: './second-action-react'
+          working-directory: './react-app-1'
 
   deploy-project:
     needs: test-project
@@ -27,6 +27,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run dummy deploy
-        uses: ./second-action-react/.github/actions/deploy
+        uses: ./react-app-1/.github/actions/deploy
         with:
-          working-directory: './second-action-react'
+          working-directory: './react-app-1'
