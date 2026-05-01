@@ -8,15 +8,15 @@ on:
 
 jobs:
   lint-project:
+
     runs-on: ubuntu-latest
     steps:
       - name: Download code
         uses: actions/checkout@v4
       - name: Run React lint
         uses: ./start/.github/actions/lint-project
-        with:
-          node-version: '24'
-          working-directory: './start'
+
+
   test-project:
     needs: lint-project
     runs-on: ubuntu-latest
@@ -25,9 +25,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Run React tests
         uses: ./start/.github/actions/test-project
-        with:
-          node-version: '24'
-          working-directory: './start'
+
   deploy-project:
     needs: test-project
     runs-on: ubuntu-latest
@@ -37,5 +35,3 @@ jobs:
 
       - name: Run dummy deploy
         uses: ./start/.github/actions/deploy
-        with:
-          working-directory: './start'
