@@ -1,4 +1,4 @@
-name: React CI Trigger
+name: React-APP-1 CI Trigger
 
 on:
   push:
