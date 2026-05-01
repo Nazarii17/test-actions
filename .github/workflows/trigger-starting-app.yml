@@ -1,0 +1,17 @@
+name: Starting APP CI Trigger
+
+on:
+  push:
+    paths:
+      - 'starting/**'
+  workflow_dispatch:
+
+jobs:
+  lint-project:
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code
+        uses: actions/checkout@v4
+      - name: Run CI/CD
+        uses: ./starting/.github/actions/action.yml
