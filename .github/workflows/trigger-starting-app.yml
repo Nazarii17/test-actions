@@ -14,4 +14,4 @@ jobs:
       - name: Download code
         uses: actions/checkout@v4
       - name: Run CI/CD
-        uses: ./starting/.github/actions/action.yml
+        uses: ./starting/.github/actions
