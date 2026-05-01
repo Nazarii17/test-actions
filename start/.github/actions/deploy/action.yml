@@ -18,10 +18,12 @@ runs:
       run: npm ci
       shell: bash
       working-directory: ${{ inputs.working-directory }}
+
     - name: Build project
       run: npm run build
       shell: bash
       working-directory: ${{ inputs.working-directory }}
+
     - name: Deploy project
       run: echo "Deploying..."
       shell: bash
