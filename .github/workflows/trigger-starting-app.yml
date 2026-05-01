@@ -8,10 +8,12 @@ on:
 
 jobs:
   deploy-project:
-
     runs-on: ubuntu-latest
     steps:
       - name: Download code
         uses: actions/checkout@v4
+
       - name: Run CI/CD
-        uses: ./starting/.github/actions
+        uses: ./starting/.github/actions/deploy
+        with:
+          app-dir: './starting' # <-- Передаємо шлях до папки як параметр

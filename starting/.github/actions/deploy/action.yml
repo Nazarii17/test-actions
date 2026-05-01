@@ -2,21 +2,34 @@ name: 'React CI Pipeline'
 description: 'A professional composite action for automated lint of React applications'
 author: 'Nazarii Tkachuk'
 
+inputs:
+  app-dir:
+    description: 'The directory of the app to build'
+    required: true
+
 runs:
   using: 'composite'
   steps:
     - name: Output event data
       run: echo "${{ toJSON(github.event) }}"
       shell: bash
+
     - name: Install dependencies
       run: npm ci
+      working-directory: ${{ inputs.app-dir }}
       shell: bash
+
     - name: Test code
       run: npm run test
+      working-directory: ${{ inputs.app-dir }}
       shell: bash
+
     - name: Build code
       run: npm run build
+      working-directory: ${{ inputs.app-dir }}
       shell: bash
+
     - name: Deploy project
       run: echo "Deploying..."
+      working-directory: ${{ inputs.app-dir }}
       shell: bash
