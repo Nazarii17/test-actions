@@ -1,0 +1,22 @@
+name: Start APP CI Trigger
+
+on:
+  push:
+    paths:
+      - 'start/**'
+  workflow_dispatch:
+
+jobs:
+  lint-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code
+        uses: actions/checkout@v4
+      - name: Run React tests
+        uses: ./start/.github/actions/lint-project
+        with:
+          node-version: '24'
+          working-directory: './start'
+
+
+
