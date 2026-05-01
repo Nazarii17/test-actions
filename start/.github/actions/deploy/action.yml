@@ -3,11 +3,14 @@ description: 'A dummy composite action for deploying the React application'
 author: 'Nazarii Tkachuk'
 
 inputs:
+  node-version:
+    description: 'The Node.js version to use'
+    required: false
+    default: '24'
   working-directory:
     description: 'The directory where the React project is located'
     required: false
-    default: './second-action-react'
-
+    default: './start'
 runs:
   using: 'composite'
   steps:
