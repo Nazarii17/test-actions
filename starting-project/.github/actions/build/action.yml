@@ -26,3 +26,5 @@ runs:
         path: |
           dist
           package.json
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
