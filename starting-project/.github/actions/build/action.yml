@@ -23,6 +23,8 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: dist-files
-        path: |
-          ${{ inputs.working-directory }}/dist
-          ${{ inputs.working-directory }}/package.json
+        path: ${{ inputs.working-directory }}/dist
+# - - - - - - - - - - - - - - - - - - - - - - - - - For multiple files - - - - - - - - - - - - - - - - - - - - - - - - -
+#        path: |
+#          ${{ inputs.working-directory }}/dist
+#          ${{ inputs.working-directory }}/package.json
