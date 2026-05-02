@@ -9,6 +9,11 @@ inputs:
     description: 'Name of the uploaded artifact'
     required: true
 
+outputs:
+  script-file:
+    description: 'Built JS asset filename'
+    value: ${{ steps.publish.outputs.script-file }}
+
 runs:
   using: 'composite'
   steps:
@@ -23,7 +28,10 @@ runs:
       shell: bash
 
     - name: Publish JS filename
-      run: find dist/assets/*.js -type f -execdir echo {} ';'
+      id: publish
+      run: |
+        FILE=$(ls dist/assets/*.js | head -n 1)
+        echo "script-file=$FILE" >> "$GITHUB_OUTPUT"
       working-directory: ${{ inputs.working-directory }}
       shell: bash
 

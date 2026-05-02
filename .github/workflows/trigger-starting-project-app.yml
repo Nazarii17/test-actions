@@ -27,11 +27,14 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{ steps.build.outputs.script-file }}
     steps:
       - name: Get code
         uses: actions/checkout@v5
 
       - name: Run Build Action
+        id: build
         uses: ./starting-project/.github/actions/build
         with:
           working-directory: ${{ env.APP_DIR }}
