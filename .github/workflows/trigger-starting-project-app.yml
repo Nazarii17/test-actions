@@ -30,7 +30,8 @@ jobs:
     outputs:
       script-file: ${{ steps.build.outputs.script-file }}
     steps:
-      - uses: actions/checkout@v5
+      - name: Get code
+        uses: actions/checkout@v5
 
       - name: Run Build Action
         id: build
@@ -43,7 +44,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - name: Get code
+        uses: actions/checkout@v5
 
       - name: Run Deploy Action
         uses: ./starting-project/.github/actions/deploy

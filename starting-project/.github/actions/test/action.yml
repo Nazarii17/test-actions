@@ -9,6 +9,13 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Setup Node.js with npm cache
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: npm
+        cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+
     - name: Install dependencies
       run: npm ci
       working-directory: ${{ inputs.working-directory }}

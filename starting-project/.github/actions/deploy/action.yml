@@ -11,7 +11,7 @@ inputs:
     required: true
 
   script-file:
-    description: 'Built JS asset filename'
+    description: 'Built JS asset filename (relative to dist)'
     required: true
 
 runs:
@@ -32,8 +32,8 @@ runs:
 
     - name: Deploy
       run: |
-        echo "Deploying JS file: ${{ inputs.script-file }}"
-        # example real usage:
+        echo "Deploying JS file: dist/${{ inputs.script-file }}"
+        # real example:
         # aws s3 cp dist/${{ inputs.script-file }} s3://my-bucket/
       working-directory: ${{ inputs.working-directory }}
       shell: bash
