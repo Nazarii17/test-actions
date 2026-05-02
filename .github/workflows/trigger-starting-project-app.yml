@@ -1,5 +1,8 @@
 name: Deploy website
 
+env:
+  APP_DIR: './starting-project'
+
 on:
   push:
     branches:
@@ -13,10 +16,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v4
+
       - name: Run Test Action
         uses: ./starting-project/.github/actions/test
         with:
-          working-directory: './starting-project'
+          working-directory: ${{ env.APP_DIR }}
 
   build:
     needs: test
@@ -24,10 +28,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v4
+
       - name: Run Build Action
         uses: ./starting-project/.github/actions/build
         with:
-          working-directory: './starting-project'
+          working-directory: ${{ env.APP_DIR }}
 
   deploy:
     needs: build
@@ -35,7 +40,8 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v4
+
       - name: Run Deploy Action
         uses: ./starting-project/.github/actions/deploy
         with:
-          working-directory: './starting-project'
+          working-directory: ${{ env.APP_DIR }}
