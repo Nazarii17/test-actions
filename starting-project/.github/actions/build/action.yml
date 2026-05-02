@@ -20,11 +20,9 @@ runs:
       shell: bash
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v4
       with:
         name: dist-files
         path: |
-          dist
-          package.json
-      working-directory: ${{ inputs.working-directory }}
-      shell: bash
+          ${{ inputs.working-directory }}/dist
+          ${{ inputs.working-directory }}/package.json
