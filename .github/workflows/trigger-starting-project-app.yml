@@ -52,3 +52,4 @@ jobs:
         with:
           working-directory: ${{ env.APP_DIR }}
           artifact-name: ${{ env.ARTIFACT_NAME }}
+          script-file: ${{ needs.build.outputs.script-file }}
