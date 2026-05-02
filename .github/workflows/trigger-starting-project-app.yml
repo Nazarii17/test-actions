@@ -1,0 +1,41 @@
+name: Deploy website
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'starting-project/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Run Test Action
+        uses: ./starting-project/.github/actions/test
+        with:
+          working-directory: './starting-project'
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Run Build Action
+        uses: ./starting-project/.github/actions/build
+        with:
+          working-directory: './starting-project'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Run Deploy Action
+        uses: ./starting-project/.github/actions/deploy
+        with:
+          working-directory: './starting-project'

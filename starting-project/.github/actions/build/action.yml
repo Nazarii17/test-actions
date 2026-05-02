@@ -1,0 +1,20 @@
+name: 'Build Project'
+description: 'Install dependencies and build the application'
+
+inputs:
+  working-directory:
+    description: 'The directory of the app'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install dependencies
+      run: npm ci
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
+
+    - name: Build website
+      run: npm run build
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash

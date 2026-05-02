@@ -1,0 +1,15 @@
+name: 'Deploy Project'
+description: 'Deploy the application'
+
+inputs:
+  working-directory:
+    description: 'The directory of the app'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Deploy
+      run: echo "Deploying..."
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
