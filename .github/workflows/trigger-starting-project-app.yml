@@ -1,4 +1,4 @@
-name: Deploy website
+name: Starting Project APP CI Trigger
 
 env:
   APP_DIR: './starting-project'
