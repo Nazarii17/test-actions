@@ -5,6 +5,9 @@ inputs:
   working-directory:
     description: 'The directory of the app'
     required: true
+  artifact-name:
+    description: 'Name of the uploaded artifact'
+    required: true
 
 runs:
   using: 'composite'
@@ -22,7 +25,7 @@ runs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: dist-files
+        name: ${{ inputs.artifact-name }}
         path: ${{ inputs.working-directory }}/dist
 # - - - - - - - - - - - - - - - - - - - - - - - - - For multiple files - - - - - - - - - - - - - - - - - - - - - - - - -
 #        path: |

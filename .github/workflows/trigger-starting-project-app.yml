@@ -2,6 +2,7 @@ name: Starting Project APP CI Trigger
 
 env:
   APP_DIR: './starting-project'
+  ARTIFACT_NAME: 'dist-files-starting-project'
 
 on:
   push:
@@ -34,6 +35,7 @@ jobs:
         uses: ./starting-project/.github/actions/build
         with:
           working-directory: ${{ env.APP_DIR }}
+          artifact-name: ${{ env.ARTIFACT_NAME }}
 
   deploy:
     needs: build
@@ -46,3 +48,4 @@ jobs:
         uses: ./starting-project/.github/actions/deploy
         with:
           working-directory: ${{ env.APP_DIR }}
+          artifact-name: ${{ env.ARTIFACT_NAME }}
