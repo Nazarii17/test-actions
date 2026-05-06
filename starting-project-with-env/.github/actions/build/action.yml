@@ -1,0 +1,59 @@
+name: 'Build Project'
+description: 'Install dependencies and build the application'
+
+inputs:
+  working-directory:
+    description: 'The directory of the app'
+    required: true
+  artifact-name:
+    description: 'Name of the uploaded artifact'
+    required: true
+
+outputs:
+  script-file:
+    description: 'Built JS asset filename'
+    value: ${{ steps.publish.outputs.script-file }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Cache node_modules
+      id: cache-deps
+      uses: actions/cache@v4
+      with:
+        path: ${{ inputs.working-directory }}/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles(format('{0}/package-lock.json', inputs.working-directory)) }}
+
+    - name: Install dependencies
+      if: steps.cache-deps.outputs.cache-hit != 'true'
+      run: npm ci
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
+
+    - name: Build website
+      run: npm run build
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
+
+    - name: Publish JS filename
+      id: publish
+      run: |
+        FILE=$(basename dist/assets/*.js | head -n 1)
+        echo "script-file=assets/$FILE" >> "$GITHUB_OUTPUT"
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: ${{ inputs.working-directory }}/dist
+# - - - - - - - - - - - - - - - - - - - - - - - - - For multiple files - - - - - - - - - - - - - - - - - - - - - - - - -
+#        path: |
+#          ${{ inputs.working-directory }}/dist
+#          ${{ inputs.working-directory }}/package.json
