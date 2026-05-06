@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "npx playwright test",
-    "build": "echo 'Build completed'"
+    "build": "mkdir -p dist/assets && touch dist/assets/index.js && echo 'Build completed'"
   },
   "keywords": [],
   "author": "",
