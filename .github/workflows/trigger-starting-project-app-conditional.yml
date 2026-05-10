@@ -67,6 +67,7 @@ jobs:
           script-file: ${{ needs.build.outputs.script-file }}
 
   report:
+    needs: [build, lint]
     if: failure()
     runs-on: ubuntu-latest
     steps:
