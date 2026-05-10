@@ -65,3 +65,12 @@ jobs:
           working-directory: ${{ env.APP_DIR }}
           artifact-name: ${{ env.ARTIFACT_NAME }}
           script-file: ${{ needs.build.outputs.script-file }}
+
+  report:
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Information
+        run: |
+          echo "Something went wrong"
+          echo ${{ github }}
