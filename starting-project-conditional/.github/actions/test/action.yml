@@ -1,5 +1,5 @@
 name: 'Test Project'
-description: 'Install dependencies, lint, and run tests'
+description: 'Install dependencies, and run tests'
 
 inputs:
   working-directory:
@@ -36,7 +36,7 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: test-report
-        path: test.jsonh
+        path: test.json
 
 #    - name: Upload artifact
 #      uses: actions/upload-artifact@v4
