@@ -37,21 +37,21 @@ jobs:
         with:
           working-directory: ${{ env.APP_DIR }}
 
-#  build:
-#    needs: test
-#    runs-on: ubuntu-latest
-#    outputs:
-#      script-file: ${{ steps.build.outputs.script-file }}
-#    steps:
-#      - name: Get code
-#        uses: actions/checkout@v5
-#
-#      - name: Run Build Action
-#        id: build
-#        uses: ./starting-project-conditional/.github/actions/build
-#        with:
-#          working-directory: ${{ env.APP_DIR }}
-#          artifact-name: ${{ env.ARTIFACT_NAME }}
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{ steps.build.outputs.script-file }}
+    steps:
+      - name: Get code
+        uses: actions/checkout@v5
+
+      - name: Run Build Action
+        id: build
+        uses: ./starting-project-conditional/.github/actions/build
+        with:
+          working-directory: ${{ env.APP_DIR }}
+          artifact-name: ${{ env.ARTIFACT_NAME }}
 #
 #  deploy:
 #    needs: build
