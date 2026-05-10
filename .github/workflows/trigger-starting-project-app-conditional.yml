@@ -13,9 +13,20 @@ on:
   workflow_dispatch:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v5
+
+      - name: Run Lint Action
+        uses: ./starting-project-conditional/.github/actions/lint
+        with:
+          working-directory: ${{ env.APP_DIR }}
 
 
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Get code
