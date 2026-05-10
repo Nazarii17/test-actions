@@ -52,17 +52,17 @@ jobs:
         with:
           working-directory: ${{ env.APP_DIR }}
           artifact-name: ${{ env.ARTIFACT_NAME }}
-#
-#  deploy:
-#    needs: build
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Get code
-#        uses: actions/checkout@v5
-#
-#      - name: Run Deploy Action
-#        uses: ./starting-project-conditional/.github/actions/deploy
-#        with:
-#          working-directory: ${{ env.APP_DIR }}
-#          artifact-name: ${{ env.ARTIFACT_NAME }}
-#          script-file: ${{ needs.build.outputs.script-file }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v5
+
+      - name: Run Deploy Action
+        uses: ./starting-project-conditional/.github/actions/deploy
+        with:
+          working-directory: ${{ env.APP_DIR }}
+          artifact-name: ${{ env.ARTIFACT_NAME }}
+          script-file: ${{ needs.build.outputs.script-file }}
