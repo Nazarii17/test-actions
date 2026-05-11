@@ -72,7 +72,7 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Get code
+      - name: Print result
         run: echo "${{ needs.deploy.outputs.result }}"
 
   report:
