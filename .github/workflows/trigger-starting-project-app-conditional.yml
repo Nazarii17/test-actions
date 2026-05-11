@@ -68,6 +68,13 @@ jobs:
     secrets:
       dummy-secret: ${{ secrets.DUMMY_SECRET }}
 
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        run: echo "${{ needs.deploy.outputs.result }}"
+
   report:
     needs: [lint, deploy]
     if: failure()
