@@ -65,6 +65,8 @@ jobs:
       working-directory: ${{ needs.setup.outputs.app-dir }}
       artifact-name: ${{ needs.setup.outputs.artifact-name }}
       script-file: ${{ needs.build.outputs.script-file }}
+    secrets:
+      dummy-secret: ${{ secrets.DUMMY_SECRET }}
 
   report:
     needs: [lint, deploy]

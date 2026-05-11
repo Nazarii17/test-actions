@@ -15,6 +15,10 @@ on:
         description: 'Built JS asset filename (relative to dist)'
         required: true
         type: string
+    secrets:
+      dummy-secret:
+        required: false
+        description: "Dummy secret for testing purposes"
 
 jobs:
   deploy:
