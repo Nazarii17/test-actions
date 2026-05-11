@@ -1,9 +1,5 @@
 name: Starting Project APP Conditional CI Trigger
 
-env:
-  APP_DIR: './starting-project-conditional'
-  ARTIFACT_NAME: 'dist-files-starting-project-conditional'
-
 on:
   push:
     branches:
@@ -13,7 +9,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      app-dir: './starting-project-conditional'
+      artifact-name: 'dist-files-starting-project-conditional'
+    steps:
+      - name: Set shared variables
+        run: echo "Exporting shared config"
+
   lint:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -22,10 +28,10 @@ jobs:
       - name: Run Lint Action
         uses: ./starting-project-conditional/.github/actions/lint
         with:
-          working-directory: ${{ env.APP_DIR }}
-
+          working-directory: ${{ needs.setup.outputs.app-dir }}
 
   test:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -34,10 +40,10 @@ jobs:
       - name: Run Test Action
         uses: ./starting-project-conditional/.github/actions/test
         with:
-          working-directory: ${{ env.APP_DIR }}
+          working-directory: ${{ needs.setup.outputs.app-dir }}
 
   build:
-    needs: test
+    needs: [setup, test]
     runs-on: ubuntu-latest
     outputs:
       script-file: ${{ steps.build.outputs.script-file }}
@@ -49,15 +55,15 @@ jobs:
         id: build
         uses: ./starting-project-conditional/.github/actions/build
         with:
-          working-directory: ${{ env.APP_DIR }}
-          artifact-name: ${{ env.ARTIFACT_NAME }}
+          working-directory: ${{ needs.setup.outputs.app-dir }}
+          artifact-name: ${{ needs.setup.outputs.artifact-name }}
 
   deploy:
-    needs: build
+    needs: [setup, build]
     uses: ./.github/workflows/reusable-deploy.yml
     with:
-      working-directory: ${{ env.APP_DIR }}
-      artifact-name: ${{ env.ARTIFACT_NAME }}
+      working-directory: ${{ needs.setup.outputs.app-dir }}
+      artifact-name: ${{ needs.setup.outputs.artifact-name }}
       script-file: ${{ needs.build.outputs.script-file }}
 
   report:
