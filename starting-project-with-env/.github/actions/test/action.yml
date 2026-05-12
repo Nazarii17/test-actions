@@ -36,11 +36,6 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       shell: bash
 
-#    - name: Lint code
-#      run: npm run lint
-#      working-directory: ${{ inputs.working-directory }}
-#      shell: bash
-#
     - name: Test code
       run: npm run test
       working-directory: ${{ inputs.working-directory }}
