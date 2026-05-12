@@ -20,6 +20,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container:
+      image: node:20
     steps:
       - name: Get code
         uses: actions/checkout@v5
