@@ -32,7 +32,7 @@ runs:
       shell: bash
 
     - name: Run server
-      run: npm start & npx wait-on http://127.0.0.1:${{ inputs.port }}
+      run: npm start & npx wait-on http://0.0.0.0:${{ inputs.port }}
       working-directory: ${{ inputs.working-directory }}
       shell: bash
 

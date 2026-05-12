@@ -3,10 +3,10 @@ name: Starting Project WITH ENV APP CI Trigger
 env:
   APP_DIR: './starting-project-with-env'
   ARTIFACT_NAME: 'dist-files-starting-project-with-env'
-#  MONGODB_CLUSTER_ADDRESS: ${{ secrets.MONGODB_CLUSTER_ADDRESS }}
-  MONGODB_CLUSTER_ADDRESS: mongo-db
-  MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-  MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+##  MONGODB_CLUSTER_ADDRESS: ${{ secrets.MONGODB_CLUSTER_ADDRESS }}
+#  MONGODB_CLUSTER_ADDRESS: mongo-db
+#  MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+#  MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
   PORT: 8080
 
 on:
@@ -29,7 +29,10 @@ jobs:
         env:
           MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGODB_USERNAME }}
           MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
-
+    env:
+      MONGODB_CLUSTER_ADDRESS: mongo-db
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
     steps:
       - name: Get code
         uses: actions/checkout@v5
