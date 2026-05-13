@@ -14,18 +14,9 @@ runs:
       with:
         node-version: 20
 
-    - name: Cache node_modules
-      id: cache-deps
-      uses: actions/cache@v4
+    - uses: ./.github/actions/cached-deps
       with:
-        path: ${{ inputs.working-directory }}/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles(format('{0}/package-lock.json', inputs.working-directory)) }}
-
-    - name: Install dependencies
-      if: steps.cache-deps.outputs.cache-hit != 'true'
-      run: npm ci
-      working-directory: ${{ inputs.working-directory }}
-      shell: bash
+        working-directory: ${{ inputs.working-directory }}
 
     - name: Lint code
       run: npm run lint
