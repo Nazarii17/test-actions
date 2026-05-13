@@ -60,7 +60,7 @@ jobs:
 
   deploy:
     needs: [setup, build]
-    uses: ./.github/workflows/reusable-deploy.yml
+    uses: ./.github/actions/reusable-deploy.yml
     with:
       working-directory: ${{ needs.setup.outputs.app-dir }}
       artifact-name: ${{ needs.setup.outputs.artifact-name }}
