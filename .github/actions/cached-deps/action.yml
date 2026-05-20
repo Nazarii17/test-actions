@@ -11,10 +11,11 @@ inputs:
     description: 'Whether to cache dependencies or not'
     required: false
     default: 'true'
+
 outputs:
   used-cache:
-    description: 'Whether the cache was used or not'
-    value: ${{ steps.install-deps.outputs.used-cache }}
+    description: 'Whether the cache was actually hit and used'
+    value: ${{ steps.cache-deps.outputs.cache-hit == 'true' }}
 
 runs:
   using: 'composite'
@@ -30,8 +31,6 @@ runs:
     - name: Install dependencies
       id: install-deps
       if: steps.cache-deps.outputs.cache-hit != 'true' || inputs.caching != 'true'
-      run: |
-        npm ci
-        echo "::set-output name=used-cache::'${{ inputs.caching }}' "
+      run: npm ci
       working-directory: ${{ inputs.working-directory }}
       shell: bash
