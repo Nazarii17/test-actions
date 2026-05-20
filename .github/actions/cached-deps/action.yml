@@ -31,6 +31,8 @@ runs:
     - name: Install dependencies
       id: install-deps
       if: steps.cache-deps.outputs.cache-hit != 'true' || inputs.caching != 'true'
-      run: npm ci
+      run: |
+        npm ci
+        echo "used-cache=${{ inputs.caching }}" >> "$GITHUB_OUTPUT"
       working-directory: ${{ inputs.working-directory }}
       shell: bash
