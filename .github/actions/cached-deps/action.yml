@@ -7,11 +7,16 @@ inputs:
     description: 'Path to the working directory'
     required: false
     default: '.'
+  caching:
+    description: 'Whether to cache dependencies or not'
+    required: false
+    default: 'true'
 
 runs:
   using: 'composite'
   steps:
     - name: Cache dependencies
+      if: inputs.caching == 'true'
       id: cache-deps
       uses: actions/cache@v4
       with:
@@ -19,7 +24,7 @@ runs:
         key: ${{ runner.os }}-node-${{ hashFiles(format('{0}/package-lock.json', inputs.working-directory)) }}
 
     - name: Install dependencies
-      if: steps.cache-deps.outputs.cache-hit != 'true'
+      if: steps.cache-deps.outputs.cache-hit != 'true' || inputs.caching != 'true'
       run: npm ci
       working-directory: ${{ inputs.working-directory }}
       shell: bash

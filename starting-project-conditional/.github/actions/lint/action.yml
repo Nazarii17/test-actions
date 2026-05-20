@@ -17,6 +17,7 @@ runs:
     - uses: ./.github/actions/cached-deps
       with:
         working-directory: ${{ inputs.working-directory }}
+        caching: 'false'
 
     - name: Lint code
       run: npm run lint
