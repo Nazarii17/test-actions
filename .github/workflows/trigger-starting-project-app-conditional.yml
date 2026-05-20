@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'starting-project-conditional/**'
-      - './.github/actions/deploy-s3-javascript'
+      - '.github/actions/deploy-s3-javascript/**'
   workflow_dispatch:
 
 jobs:
