@@ -19,6 +19,10 @@ runs:
         working-directory: ${{ inputs.working-directory }}
         caching: 'false'
 
+    - name: Output information
+      run: echo "Cache used? ${{ steps.cached-deps.outputs.used-cache }}"
+      shell: bash
+
     - name: Lint code
       run: npm run lint
       working-directory: ${{ inputs.working-directory }}
