@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'starting-project-conditional/**'
+      - './.github/actions/deploy-s3-javascript'
   workflow_dispatch:
 
 jobs:
@@ -84,3 +85,12 @@ jobs:
         run: |
           echo "Something went wrong"
           echo ${{ toJSON(github) }}
+
+  information:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v5
+
+      - name: Runs custom JS action
+        uses: ./.github/actions/deploy-s3-javascript

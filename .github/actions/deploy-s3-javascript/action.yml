@@ -1,0 +1,6 @@
+name: 'Deploy to AWS S3'
+author: nazarii.tkachuk
+description: 'Deploy a static website to AWS S3'
+runs:
+  using: node20
+  main: main.js
