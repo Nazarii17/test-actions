@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'starting-project-conditional/**'
-      - '.github/actions/deploy-s3-javascript/**'
   workflow_dispatch:
     inputs:
       bucket-name:
