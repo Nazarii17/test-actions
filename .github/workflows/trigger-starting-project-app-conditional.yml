@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Run Lint Action
         uses: ./starting-project-conditional/.github/actions/lint
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Run Test Action
         uses: ./starting-project-conditional/.github/actions/test
@@ -50,7 +50,7 @@ jobs:
       script-file: ${{ steps.build.outputs.script-file }}
     steps:
       - name: Get code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Run Build Action
         id: build
