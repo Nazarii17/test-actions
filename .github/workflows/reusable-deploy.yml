@@ -52,7 +52,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         with:
           bucket: 'some-bucket'
-          dist-folder: ./dist
+          dist-folder: ${{ inputs.working-directory }}/dist
           bucket-region: 'us-east-1'
       #        run: |
       #          echo "Deploying JS file: dist/${{ inputs.script-file }}"
