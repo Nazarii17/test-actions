@@ -30,7 +30,7 @@ async function run() {
         core.setFailed(`Action setup failed: ${error.message}`);
     }
 
-    const websiteUrl = `https://${bucket}.s3-website.${bucketRegion}.amazonaws.com}`;
+    const websiteUrl = `https://${bucket}.s3-website.${bucketRegion}.amazonaws.com`;
     core.setOutput('website-url', websiteUrl);
 }
 

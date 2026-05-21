@@ -8,6 +8,12 @@ on:
       - 'starting-project-conditional/**'
       - '.github/actions/deploy-s3-javascript/**'
   workflow_dispatch:
+    inputs:
+      bucket-name:
+        description: 'Enter the target S3 bucket name'
+        required: true
+        default: 'my-learning-bucket'
+        type: string
 
 jobs:
   setup:
@@ -66,8 +72,9 @@ jobs:
       working-directory: ${{ needs.setup.outputs.app-dir }}
       artifact-name: ${{ needs.setup.outputs.artifact-name }}
       script-file: ${{ needs.build.outputs.script-file }}
-    secrets:
-      dummy-secret: ${{ secrets.DUMMY_SECRET }}
+      # Pass the manual input, or fallback to a default if triggered by a push
+      target-bucket: ${{ inputs.bucket-name || 'fallback-learning-bucket' }}
+    secrets: inherit
 
   print-deploy-result:
     needs: deploy
