@@ -25,13 +25,14 @@ async function run() {
         }
 
         core.notice('Hello from my JavaScript Action!')
+
+        const websiteUrl = `https://${bucket}.s3-website.${bucketRegion}.amazonaws.com`;
+        core.setOutput('website-url', websiteUrl);
+
     } catch (error) {
         // Core errors (like missing inputs) should still fail the action
         core.setFailed(`Action setup failed: ${error.message}`);
     }
-
-    const websiteUrl = `https://${bucket}.s3-website.${bucketRegion}.amazonaws.com`;
-    core.setOutput('website-url', websiteUrl);
 }
 
 run();
