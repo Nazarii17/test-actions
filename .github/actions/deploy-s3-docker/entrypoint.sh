@@ -1,13 +1,19 @@
 #!/bin/bash
 
 # 1. Get input values (GitHub injects them as INPUT_<UPPERCASE_NAME>)
-BUCKET=$INPUT_BUCKET
-BUCKET_REGION=$INPUT_BUCKET_REGION
-DIST_FOLDER=$INPUT_DIST_FOLDER
+# Note: GitHub converts hyphens to underscores, so:
+# - bucket -> INPUT_BUCKET
+# - bucket-region -> INPUT_BUCKET_REGION
+# - dist-folder -> INPUT_DIST_FOLDER
+BUCKET="${INPUT_BUCKET}"
+BUCKET_REGION="${INPUT_BUCKET_REGION:-us-east-1}"
+DIST_FOLDER="${INPUT_DIST_FOLDER}"
 
 # Check for required inputs (simulating the core input failure)
 if [ -z "$BUCKET" ] || [ -z "$DIST_FOLDER" ]; then
   echo "::error::Action setup failed: bucket and dist-folder are required."
+  echo "DEBUG: BUCKET=${BUCKET}, DIST_FOLDER=${DIST_FOLDER}"
+  echo "DEBUG: Available env vars: $(compgen -e | grep INPUT | sort)"
   exit 1
 fi
 
