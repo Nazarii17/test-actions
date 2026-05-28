@@ -1,0 +1,23 @@
+name: 'Deploy to AWS S3'
+author: nazarii.tkachuk
+description: 'Deploy a static website to AWS S3 using Docker'
+
+inputs:
+  bucket:
+    description: 'The S3 bucket name'
+    required: true
+  bucket-region:
+    description: 'The AWS S3 region'
+    required: false
+    default: 'us-east-1'
+  dist-folder:
+    description: 'The folder containing the static website files'
+    required: true
+
+outputs:
+  website-url:
+    description: 'The URL of the deployed website'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
