@@ -37,4 +37,3 @@ runs:
         # aws s3 cp dist/${{ inputs.script-file }} s3://my-bucket/
       working-directory: ${{ inputs.working-directory }}
       shell: bash
-
