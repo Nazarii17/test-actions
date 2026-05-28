@@ -16,16 +16,19 @@ on:
         required: true
         type: string
     outputs:
-      result:
-        description: 'Result of the deploy action'
-        value: ${{ jobs.deploy.outputs.outcome }}
+      result-js:
+        description: 'Result of the JS deploy action'
+        value: ${{ jobs.deploy-js.outputs.outcome }}
+      result-docker:
+        description: 'Result of the Docker deploy action'
+        value: ${{ jobs.deploy-docker.outputs.outcome }}
     secrets:
       dummy-secret:
         required: false
         description: "Dummy secret for testing purposes"
 
 jobs:
-  deploy:
+  deploy-js:
     outputs:
       outcome: ${{ steps.set-result.outputs.step-result }}
     runs-on: ubuntu-latest
@@ -45,7 +48,7 @@ jobs:
           ls -R dist
         working-directory: ${{ inputs.working-directory }}
 
-      - name: Deploy site
+      - name: Deploy site (JS Action)
         uses: ./.github/actions/deploy-s3-javascript
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -54,10 +57,41 @@ jobs:
           bucket: 'some-bucket'
           dist-folder: ${{ inputs.working-directory }}/dist
           bucket-region: 'us-east-1'
-      #        run: |
-      #          echo "Deploying JS file: dist/${{ inputs.script-file }}"
-      #        working-directory: ${{ inputs.working-directory }}
 
       - name: Set result output
         id: set-result
-        run: echo "::set-output name=step-result::success"
+        run: echo "step-result=success" >> "$GITHUB_OUTPUT"
+
+  deploy-docker:
+    outputs:
+      outcome: ${{ steps.set-result.outputs.step-result }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: ${{ inputs.working-directory }}/dist
+
+      - name: Verify artifact contents
+        run: |
+          echo "Artifact contents:"
+          ls -R dist
+        working-directory: ${{ inputs.working-directory }}
+
+      - name: Deploy site (Docker Action)
+        uses: ./.github/actions/deploy-s3-docker
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          bucket: 'some-bucket'
+          dist-folder: ${{ inputs.working-directory }}/dist
+          bucket-region: 'us-east-1'
+
+      - name: Set result output
+        id: set-result
+        run: echo "step-result=success" >> "$GITHUB_OUTPUT"
